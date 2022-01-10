@@ -1,0 +1,192 @@
+@use "sass:math";
+@import url("https://fonts.google.com/specimen/Inter");
+@import url("https://fonts.google.com/specimen/Lexend+Deca");
+// Variables
+
+$mobSize: 375px;
+$deskSize: 1440px;
+
+$bgcolor: hsl(233, 47%, 7%);
+$card-bgcolor: hsl(244, 38%, 16%);
+$accent: hsl(277, 64%, 61%);
+$stats: hsl(0, 0%, 100%);
+$paragraph: hsla(0, 0%, 100%, 0.75);
+$headings: hsla(0, 0%, 100%, 0.6);
+
+$size: 15px;
+$family1: "Inter", sans-serif;
+$family2: "Lexend Deca", sans-serif;
+$weight1: 400;
+$weight2: 700;
+
+// Mixins
+
+@mixin data-props ($rs, $cs, $re, $ce) {
+    width: 80%;
+    margin: 0;
+    grid-area: $rs, $cs, $re, $ce;
+    justify-content: center;
+    // font-family: Arial, Helvetica, sans-serif;
+}
+
+// BEGIN
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $bgcolor;
+    color: $headings;
+}
+span {
+    color: $accent;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+h1 {
+    font-weight: $weight2;
+    font-family: $family2;
+}
+
+p {
+    font-weight: $weight1;
+    font-family: $family1;
+}
+
+.fl {
+    font-weight: $weight1;
+    font-family: $family1;
+}
+
+@media screen and (min-width: $mobSize) {
+    .card {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        margin-top: 70px;
+        margin-bottom: 70px;
+        background-color: $card-bgcolor;
+        border-radius: 10px;
+        .data {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: stretch;
+            padding: 30px 40px 10px;
+            color: $stats;
+            h1 {
+                margin: 0;
+                color: $stats;
+                text-align: center;
+                font-size: $size * 2 - 6px;
+            }
+            p {
+                color: $paragraph;
+                text-align: center;
+                font-size: $size;
+            }
+            .fl {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                margin-top: 20px;
+                .row {
+                    margin-bottom: 15px;
+                    text-align: center;
+                    text-transform: uppercase;
+                    color: $headings;
+                    .num {
+                        color: $stats;
+                        font-size: ($size * 2) - math.div($size, 2);
+                        font-weight: $weight2;
+                    }
+                }
+            }
+        }
+        .data {
+            grid-area: 1 / 1 / 11 / 11;
+        }
+        .img {
+            position: relative;
+            margin: 0;
+            order: -1;
+            &::before {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                border-radius: 10px 10px 0 0;
+                background-color: rgba($color: $accent, $alpha: .5);
+            }
+            img {
+                border-radius: 10px 10px 0 0;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .card {
+        .data {
+            h1 {
+                font-size: $size * 2 + 12px;
+            }
+            p {
+                font-size: $size + 12px;
+            }
+            .fl {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: $deskSize) {
+    .card {
+        display: grid;
+        grid-template-columns: repeat(20, 1fr);
+        grid-template-rows: repeat(10, 1fr);
+        width: 80%;
+        max-height: 450px;
+        margin: 50px auto;
+        .data {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: repeat(10, 1fr);
+            padding: 0;
+            h1 {
+                grid-area: 2 / 2 / 4 / 9;
+                text-align: left;
+                font-size: $size * 2 + 6px;
+            }
+            p {
+                grid-area: 5 / 2 / 7 / 9;
+                margin: 0;
+                text-align: left;
+                font-size: $size + 2px;
+            }
+            .fl {
+                grid-area: 8 / 2 / 11 / 9;
+                justify-content: space-between;
+                margin: 0;
+            }
+        }
+        .img {
+            grid-area: 1 / 11 / 11 / 21;
+            &::before {
+                border-radius: 0 10px 10px 0;
+            }
+            img {
+                border-radius: 0 10px 10px 0;
+            }
+        }
+    }
+}
